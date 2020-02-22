@@ -1,8 +1,8 @@
 import csv
-import notionImpoter
+import notionImporter
 
 def main():
-  notion = notionImpoter.NotionCsvImpoter()
+  notion = notionImporter.NotionCsvImporter()
   results = notion.convert_csv_to_list()
   for r in results:
     print(r)
