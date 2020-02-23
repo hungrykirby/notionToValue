@@ -1,6 +1,7 @@
 import csv
+import datetime
 
-class NotionCsvImpoter:
+class NotionCsvImporter:
   def __init__(self):
     pass
 
@@ -9,10 +10,8 @@ class NotionCsvImpoter:
 
   def __date_sort(self, results):
     # return [[title => str, date => int, month => int, year => int, mothin => str], [], ... ]
-    results_sorted_date = sorted(results, key=lambda r: r[1])
-    results_sorted_month = sorted(results_sorted_date, key=lambda r: r[2])
-    results_sorted_year = sorted(results_sorted_month, key=lambda r: r[3])
-    return results_sorted_year
+    results_sorted = sorted(results, key=lambda r: r[1])
+    return results_sorted
 
   def __csv_reader(self):
     results = []
@@ -33,7 +32,8 @@ class NotionCsvImpoter:
         date_and_month = self.__day_to_date_and_month(day)
         if date_and_month == False:
           continue
-        results.append([title, date_and_month['date'], date_and_month['month'], int(year), motion])
+        d = year + '/' + date_and_month['month'] + '/' + date_and_month['date']
+        results.append([title, datetime.datetime.strptime(d, '%Y/%m/%d'), motion])
     return results
 
   def __day_to_date_and_month(self, raw_day):
