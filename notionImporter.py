@@ -2,20 +2,26 @@ import csv
 import datetime
 
 class NotionCsvImporter:
-  def __init__(self):
-    pass
+  csv_file_name = None  
+  def __init__(self, csv_file_name):
+    self.csv_file_name = csv_file_name
 
   def convert_csv_to_list(self):
-    return self.__date_sort(self.__csv_reader())
+    readed = self.__csv_reader()
+    if readed == False:
+      return False
+    return self.__date_sort(readed)
 
   def __date_sort(self, results):
-    # return [[title => str, date => int, month => int, year => int, mothin => str], [], ... ]
+    # return [[title => str, d => datetime, mothin => str], [], ... ]
     results_sorted = sorted(results, key=lambda r: r[1])
     return results_sorted
 
   def __csv_reader(self):
     results = []
-    with open('./notionData/Untitled.csv', encoding="utf-8") as f:
+    if self.csv_file_name == None:
+      return False
+    with open('./notionData/' + self.csv_file_name, encoding="utf-8") as f:
       # CSVの形式
       # title, day(date and month), year, ???, mothon
       lines = f.readlines()
@@ -32,8 +38,8 @@ class NotionCsvImporter:
         date_and_month = self.__day_to_date_and_month(day)
         if date_and_month == False:
           continue
-        d = year + '/' + date_and_month['month'] + '/' + date_and_month['date']
-        results.append([title, datetime.datetime.strptime(d, '%Y/%m/%d'), motion])
+        d = year + '/' + str(date_and_month['month']) + '/' + str(date_and_month['date'])
+        results.append([title, datetime.datetime.strptime(d, '%Y/%m/%d'), self.__convert_motion_to_value(motion)])
     return results
 
   def __day_to_date_and_month(self, raw_day):
@@ -55,3 +61,13 @@ class NotionCsvImporter:
       return {'month': month, 'date': int(raw_day_list[1])}
     else:
       return False
+
+  def __convert_motion_to_value(self, motion):
+    dic_str_motion = {
+      '良い': 5, 'そこそこ良い': 4, '普通': 3,
+      'そこそこ悪い': 2, '悪い': 1
+    }
+    if motion in dic_str_motion:
+      return dic_str_motion[motion]
+    else:
+      return -1
