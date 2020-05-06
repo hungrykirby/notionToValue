@@ -26,6 +26,7 @@ class PressureCsvImporter:
       'upSum': 0,
       'downMax': 0,
       'upMax': 0,
+      'gap': 0,
       'ave': sum(results) / l,
       'MaxMinusMin': max(results) - min(results)
     }
@@ -44,6 +45,7 @@ class PressureCsvImporter:
       vals['downMax'] = min(downs)
     if len(ups) > 0:
       vals['upMax'] = max(ups)
+    vals['gap'] = max([vals['upMax'], abs(vals['downMax'])])
       
     return vals
 

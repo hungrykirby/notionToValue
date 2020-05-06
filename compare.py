@@ -12,7 +12,7 @@ def main():
   pcsv = pressureImporter.PressureCsvImporter()
   notion = notionImporter.NotionCsvImporter('Untitled.csv')
   motion_list = notion.convert_csv_to_list()
-  categories = ['firstLast', 'lastFirst', 'firstLastAbs', 'lastFirstAbs', 'downSum', 'upSum', 'downMax', 'upMax', 'ave', 'MaxMinusMin']
+  categories = ['firstLast', 'lastFirst', 'firstLastAbs', 'lastFirstAbs', 'downSum', 'upSum', 'downMax', 'upMax', 'gap', 'ave', 'MaxMinusMin']
   pressure_vals_list = {}
   for category in categories:
     pressure_vals_list[category] = []
