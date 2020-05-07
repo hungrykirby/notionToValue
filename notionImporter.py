@@ -45,6 +45,9 @@ class NotionCsvImporter:
   def __day_to_date_and_month(self, raw_day):
     raw_day_list = raw_day.split(" ")
     dic_str_month = {
+      "Apr": 4,
+      "May": 5,
+      "Mar": 3,
       "Feb": 2,
       "Jan": 1,
       "Dec": 12,

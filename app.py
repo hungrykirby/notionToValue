@@ -21,9 +21,9 @@ def main():
   # r_d_max = max(results, lambda r: r)
   graph.set_max_min(max(graph_data['x']), 5, min(graph_data['x']), 1)
   graph.create_motion_graph(graph_data['x'], graph_data['y'], '1')
-  tmp = graph_filled.fill_gap(graph_data['timestamp'], graph_data['y'], 10000)
+  tmp = graph_filled.fill_gap(graph_data['timestamp'], graph_data['y'], 1000000)
   graph_filled.set_max_min((max(graph_data['timestamp'])), 5, min(graph_data['timestamp']), 1)
-  graph_filled.create_motion_graph(tmp['x'], tmp['y'], '2')
+  graph_filled.create_motion_graph(tmp['x'], tmp['y'], '1000000')
   return True
 
 if __name__ == "__main__":
