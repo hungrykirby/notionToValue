@@ -42,10 +42,10 @@ class PressureCsvImporter:
         vals['upSum'] += (results[i + 1] - results[i])
         ups.append(results[i + 1] - results[i])
     if len(downs) > 0:
-      vals['downMax'] = min(downs)
+      vals['downMax'] = max(downs)
     if len(ups) > 0:
       vals['upMax'] = max(ups)
-    vals['gap'] = max([vals['upMax'], abs(vals['downMax'])])
+    vals['gap'] = max([vals['upMax'], vals['downMax']])
       
     return vals
 
